@@ -11,10 +11,3 @@
     max-height: 100vh;
     margin: auto;
 }
-.gridRow {
-    border: 1px solid black;
-}
-
-.cell {
-    border: 1px solid black;
-}
