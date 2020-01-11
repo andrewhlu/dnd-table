@@ -1,18 +1,22 @@
-<!DOCTYPE html>
-<head><link rel="stylesheet" href="style.css"></head>
+<!DOCTYPE html><!--change to white on black grid, add if gates for grid size and pick good increment/init size-->
+<head>
+<link rel="stylesheet" href="style.css">
+<script src="https://code.jquery.com/jquery-3.2.1.min.js" type="text/javascript"></script>
 <script type="text/javascript" src="dndtablescript.js"></script>
+</head>
+
 
 <body>
 
 <center>
-<button type = "button" onclick = "">Shrink Grid (Down to 1x1)</button>
-<button type = "button" onclick = "">Toggle Grid</button>
-<button type = "button" onclick = "">Enlarge Grid (Up to 32x32)</button>
+<button type = "button" onclick = "createGrid(currSize-20)">Shrink Grid (Down to 1x1)</button>
+<button type = "button" onclick = "createGrid(100)">Initialize Grid</button>
+<button type = "button" onclick = "createGrid(currSize+20)">Enlarge Grid (Up to 32x32)</button>
 </br>
 
 <input type='file'/>
 </center>
-<div id = "container" class = "imgbox"><img id="myImg" src="#" alt="" class = "center-fit"></div>
+<div class = "imgbox"><img id="myImg" src="#" alt="" class = "center-fit"></div>
 
 </body>
 </html>
