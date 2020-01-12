@@ -34,3 +34,26 @@ body {
     border-width: 0 1px 1px 0;
     float: left;
 }
+
+.calibration {
+    text-align: center;
+}
+
+#calibration-rect {
+    border: 1px solid black;
+    z-index: -1;
+}
+
+#touch-circle {
+    width: 30px;
+    height: 30px;
+    border: 1px solid #000;
+    border-radius: 15px;
+    background-color: #555;
+}
+
+.calibration-button {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+}

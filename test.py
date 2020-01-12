@@ -6,6 +6,7 @@ stage = "finger-up"
 tapDefine = 1000 #upperbound to define tap in ms. Anything above this value is considered a hold
 tapLength = 0
 
+pyautogui.FAILSAFE = False
 
 #xCord = random.randint(leftSide, rightSide)
 #yCord = random.randint(bottomSide, topSide)
@@ -33,14 +34,14 @@ def message_received(client, server, message):
 				tick = result["time"]
 				print("tap started")
 			
-
 		elif "finger-up" in result["type"] and stage not in result["type"]:
 			stage = 'finger-up'
-			tapLength = result["time"] - tick
+			pyautogui.click()
+			# tapLength = result["time"] - ticks
 
-			if tapLength < tapDefine:
-				pyautogui.click()
-				print("tap registered")
+			# if tapLength < tapDefine:
+			# 	pyautogui.click()
+			# 	print("tap registered")
 
 
 
