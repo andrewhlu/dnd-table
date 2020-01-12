@@ -11,7 +11,7 @@ var currInit = 2;
 // Calibration configuration
 var stableThreshold = 10;
 var requiredFrames = 100;
-var sendEveryNFrames = 10;
+var sendEveryNFrames = 15;
 var zAxisThreshold = -155;
 
 var data = {type: "calibration"};
@@ -182,8 +182,8 @@ function init() {
                         var dstPt = perspT.transform(fingers[i].stabilizedTipPosition[0], fingers[i].stabilizedTipPosition[1]);
 
                         var touchCircle = document.getElementById("touch-circle");
-                        touchCircle.style.left = (dstPt[0] + leftMargin * 1.5 - 15) + "px";
-                        touchCircle.style.top = (dstPt[1] + topMargin * 0.5 - 15) + "px";
+                        touchCircle.style.left = (dstPt[0] + leftMargin - 15) + "px";
+                        touchCircle.style.top = (dstPt[1] + topMargin - 15) + "px";
 
                         var instructionDisplay = document.getElementById("instruction-p");
                         instructionDisplay.innerHTML = dstPt[1].toFixed() + " x " + dstPt[0].toFixed() + " px, " + touchCircle.style.left + " x " + touchCircle.style.top;
