@@ -9,7 +9,7 @@ var stepNames = ["", "tl", "tr", "bl", "br"];
 var currentStep = 0;
 
 var stableThreshold = 10;
-var requiredFrames = 200;
+var requiredFrames = 100;
 var currentCoordinate = {
     x: 0,
     y: 0,
