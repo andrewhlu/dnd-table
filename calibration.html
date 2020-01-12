@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Leap Motion Calibration</title>
+
+    <!-- Perspective Transform -->
+    <script src="perspective-transform.min.js" type="text/javascript"></script>
+
+    <!-- JavaScript to run Leap Motion -->
+    <script src="calibration.js" type="text/javascript"></script>
+
+    <!-- CSS for webpage -->
+    <link rel="stylesheet" type="text/css" href="calibration.css">
+  </head>
+
+  <body onload="init();">
+    <h1>Calibration</h1>
+    <p id="instruction-p">Enter your desired touch zone width and height in pixels.</p>
+
+    <p id="screen-size-p"></p>
+
+    <div id="input-div">
+        <p>Width: </p>
+        <input id="rect-width" type="number" value="1366" />
+
+        <p>Height: </p>
+        <input id="rect-height" type="number" value="768" />
+
+        <p>Make sure the Leap Motion and Python servers are connected before starting calibration!</p>
+        <button type="button" onclick="startCalibration();">Start Calibration</button>
+    </div>
+
+    <div id="calibration-rect" style="position: fixed;"></div>
+
+    <div id="touch-circle" style="position: fixed;" hidden></div>
+  </body>
+</html>

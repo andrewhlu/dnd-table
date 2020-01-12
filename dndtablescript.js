@@ -1,4 +1,5 @@
-currSize = 100;
+var currSize = 73.11;
+var currInit = 2;
 
 window.addEventListener('load', function() {
   document.querySelector('input[type="file"]').addEventListener('change', function() {
@@ -17,6 +18,7 @@ function createGrid(size) {
     }
 
     currSize = size;
+
     var ratioW = Math.floor($(window).width()/size),
         ratioH = Math.floor($(window).height()/size);
     
@@ -35,4 +37,21 @@ function createGrid(size) {
             }).appendTo(parent);
         }
     }
+}
+
+function addInit() {
+  $("#initTable tbody").append(
+      "<tr>" +
+        "<td>Initiative " +
+        currInit +
+        ": </td>" +
+        "<td><div contenteditable>Name (Editable)</div></td>" +
+      "</tr>"
+  );
+  currInit++;
+}
+
+function remInit() {
+  $("tr").remove(":contains('Dead')");
+  currInit--;
 }
