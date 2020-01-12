@@ -1,5 +1,6 @@
 body {
     padding: 0;
+    background-color: white;
 }
 
 .imgbox {
@@ -22,14 +23,14 @@ body {
 .grid {
     position: fixed;
     left: 0;
-    top: 0;
-    border: 1px solid #000;
+    bottom: 0;
+    border: 1px solid white;
     border-width: 1px 0 0 1px;
     z-index: -1;
 }
 
 .grid div {
-    border: 1px solid #000;
+    border: 1px solid white;
     border-width: 0 1px 1px 0;
     float: left;
 }
