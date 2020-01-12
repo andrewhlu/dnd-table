@@ -46,7 +46,7 @@ function init() {
 
     leapMotionWs.onmessage = (event) => {
         // Parse finger data only if calibration has been started
-        if(currentStep > 0 && currentStep < 5) {
+        if(currentStep > 0) {
             var object = JSON.parse(event.data);
 
             var fingers = object.pointables;
@@ -59,47 +59,65 @@ function init() {
                     // Print finger data on screen
                     document.getElementById("screen-size-p").innerHTML = "X: " + fingers[i].stabilizedTipPosition[0].toFixed(0) + " Y: " + fingers[i].stabilizedTipPosition[1].toFixed(0) + " Z: " + fingers[i].stabilizedTipPosition[2].toFixed(0) + " FC: " + frameCounter + " / " + requiredFrames;
 
-                    // Check if the finger is still within range of the saved coordinates
-                    if(Math.abs(fingers[i].stabilizedTipPosition[0] - currentCoordinate.x) < stableThreshold &&
-                       Math.abs(fingers[i].stabilizedTipPosition[1] - currentCoordinate.y) < stableThreshold &&
-                       Math.abs(fingers[i].stabilizedTipPosition[2] - currentCoordinate.z) < stableThreshold) 
-                    {
-                        // Finger is in range of saved coordinates
-                        frameCounter++;
+                    if(currentStep < 5) {
+                        // Check if the finger is still within range of the saved coordinates
+                        if(Math.abs(fingers[i].stabilizedTipPosition[0] - currentCoordinate.x) < stableThreshold &&
+                           Math.abs(fingers[i].stabilizedTipPosition[1] - currentCoordinate.y) < stableThreshold &&
+                           Math.abs(fingers[i].stabilizedTipPosition[2] - currentCoordinate.z) < stableThreshold) 
+                        {
+                            // Finger is in range of saved coordinates
+                            frameCounter++;
 
-                        if(frameCounter >= requiredFrames) {
-                            // This step is complete! Save data and move on to the next step
-                            data[stepNames[currentStep]] = currentCoordinate;
-                            currentStep++;
+                            if(frameCounter >= requiredFrames) {
+                                // This step is complete! Save data and move on to the next step
+                                data[stepNames[currentStep]] = currentCoordinate;
+                                currentStep++;
 
-                            if(currentStep > 4) {
-                                // Calibration is complete! Send the data to the server
-                                console.log(data);
-                                serverWs.send(JSON.stringify(data));
+                                if(currentStep > 4) {
+                                    // Calibration is complete! Send the data to the server
+                                    console.log(data);
+                                    serverWs.send(JSON.stringify(data));
+                                }
+                                nextStepCalibration();
+
+                                // Reset saved coordinates
+                                frameCounter = 0;
+                                currentCoordinate = {
+                                    x: 0,
+                                    y: 0,
+                                    z: 0
+                                };
                             }
-                            nextStepCalibration();
-
-                            // Reset saved coordinates
+                        }
+                        else {
+                            // Finger is not in range of saved coordinates
                             frameCounter = 0;
                             currentCoordinate = {
-                                x: 0,
-                                y: 0,
-                                z: 0
+                                x: fingers[i].stabilizedTipPosition[0],
+                                y: fingers[i].stabilizedTipPosition[1],
+                                z: fingers[i].stabilizedTipPosition[2]
                             };
                         }
+                        
+                        fingerDetected = true;
+                        break;
                     }
                     else {
-                        // Finger is not in range of saved coordinates
-                        frameCounter = 0;
-                        currentCoordinate = {
-                            x: fingers[i].stabilizedTipPosition[0],
-                            y: fingers[i].stabilizedTipPosition[1],
-                            z: fingers[i].stabilizedTipPosition[2]
-                        };
+                        // Calibration is done, display coordinates on screen
+                        var topMargin = (window.innerWidth - desiredWidth.value) / 2;
+                        var leftMargin = (window.innerHeight - desiredHeight.value) / 2;
+                        var srcCorners = [data.tl.x, data.tl.y, data.tr.x, data.tr.y, data.br.x, data.br.y, data.bl.x, data.bl.y];
+                        var dstCorners = [0, 0, data.frame.width, 0, data.frame.width, data.frame.height, 0, data.frame.height];
+                        var perspT = PerspT(srcCorners, dstCorners);
+                        var dstPt = perspT.transform(fingers[i].stabilizedTipPosition[0], fingers[i].stabilizedTipPosition[1]);
+
+                        var touchCircle = document.getElementById("touch-circle");
+                        touchCircle.style.left = (dstPt[0] + leftMargin * 1.5 - 15) + "px";
+                        touchCircle.style.top = (dstPt[1] + topMargin * 0.5 - 15) + "px";
+
+                        var instructionDisplay = document.getElementById("instruction-p");
+                        instructionDisplay.innerHTML = dstPt[1].toFixed() + " x " + dstPt[0].toFixed() + " px, " + touchCircle.style.left + " x " + touchCircle.style.top;
                     }
-                    
-                    fingerDetected = true;
-                    break;
                 }
             }
 
@@ -196,7 +214,6 @@ function nextStepCalibration() {
     }
     else if(currentStep == 5) {
         // Completed
-        touchCircle.hidden = true;
         instructionDisplay.innerHTML = "Calibration is complete!";
     }
 }
