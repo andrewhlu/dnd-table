@@ -9,14 +9,21 @@
 <body>
 
 <center>
-<button type = "button" onclick = "createGrid(currSize-20)">Shrink Grid (Down to 1x1)</button>
-<button type = "button" onclick = "createGrid(100)">Initialize Grid</button>
-<button type = "button" onclick = "createGrid(currSize+20)">Enlarge Grid (Up to 32x32)</button>
+<button type = "button" onclick = "createGrid(currSize-17.21)">Shrink Grid</button>
+<button type = "button" onclick = "createGrid(73.11)">Reset Grid</button>
+<button type = "button" onclick = "createGrid(currSize+17.21)">Enlarge Grid</button>
 </br>
 
 <input type='file'/>
 </center>
 <div class = "imgbox"><img id="myImg" src="#" alt="" class = "center-fit"></div>
+
+<button type = "button" onclick = "addInit()">Add Initiative</button>
+<button type = "button" onclick = "remInit()">Remove Dead</button>
+
+<table id = "initTable">
+<tr><td>Initiative:</td><td><div contenteditable>Name (Editable)</div></td></tr>
+</table>
 
 </body>
 </html>
