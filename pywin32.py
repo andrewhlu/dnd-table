@@ -15,25 +15,25 @@ storedY = 0
 
 
 def new_client(client, server):
-    print("Connection Established")
+	print("Connection Established")
 
 
 def message_received(client, server, message):
-    global stage, tick, tapLength, tapDefine, storedX, storedY
-    print(json.loads(message))
-    result = json.loads(message)
-    if "finger-down" in result["type"]:
-        win32api.SetCursorPos(result["position"]["x"], result["position"]["y"])
-        storedX = result["position"]["x"]
-        storedY = result["position"]["y"]
-        if stage not in result["type"]:
-            stage = 'finger-down'
-            tick = result["time"]
-            print("tap started")
-    elif "finger-up" in result["type"] and stage not in result["type"]:
-        stage = 'finger-up'
-        win32api.mouse_event(win32con.MOUSEEVENTF_LEFTDOWN, storedX, storedY, 0, 0)
-        win32api.mouse_event(win32con.MOUSEEVENTF_LEFTUP, storedX, storedY, 0, 0)
+	global stage, tick, tapLength, tapDefine, storedX, storedY
+	print(json.loads(message))
+	result = json.loads(message)
+	if "finger-down" in result["type"]:
+		win32api.SetCursorPos((int(result["position"]["x"]), int(result["position"]["y"])))
+		storedX = result["position"]["x"]
+		storedY = result["position"]["y"]
+		if stage not in result["type"]:
+			stage = 'finger-down'
+			tick = result["time"]
+			print("tap started")
+	elif "finger-up" in result["type"] and stage not in result["type"]:
+		stage = 'finger-up'
+		win32api.mouse_event(win32con.MOUSEEVENTF_LEFTDOWN, storedX, storedY, 0, 0)
+		win32api.mouse_event(win32con.MOUSEEVENTF_LEFTUP, storedX, storedY, 0, 0)
 
 PORT = 8000
 server = WebsocketServer(PORT, "0.0.0.0")
