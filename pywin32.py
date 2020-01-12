@@ -24,8 +24,8 @@ def message_received(client, server, message):
 	result = json.loads(message)
 	if "finger-down" in result["type"]:
 		win32api.SetCursorPos((int(result["position"]["x"]), int(result["position"]["y"])))
-		storedX = result["position"]["x"]
-		storedY = result["position"]["y"]
+		storedX = int(result["position"]["x"])
+		storedY = int(result["position"]["y"])
 		if stage not in result["type"]:
 			stage = 'finger-down'
 			tick = result["time"]
