@@ -1,4 +1,5 @@
-currSize = 73.11;
+var currSize = 73.11;
+var currInit = 2;
 
 window.addEventListener('load', function() {
   document.querySelector('input[type="file"]').addEventListener('change', function() {
@@ -41,12 +42,16 @@ function createGrid(size) {
 function addInit() {
   $("#initTable tbody").append(
       "<tr>" +
-        "<td>Initiative:</td>" +
+        "<td>Initiative " +
+        currInit +
+        ": </td>" +
         "<td><div contenteditable>Name (Editable)</div></td>" +
       "</tr>"
   );
+  currInit++;
 }
 
 function remInit() {
   $("tr").remove(":contains('Dead')");
+  currInit--;
 }

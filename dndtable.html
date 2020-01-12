@@ -3,11 +3,15 @@
 <link rel="stylesheet" href="style.css">
 <script src="https://code.jquery.com/jquery-3.2.1.min.js" type="text/javascript"></script>
 <script type="text/javascript" src="dndtablescript.js"></script>
+<!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/7.6.2/firebase-app.js"></script>
+
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+<script src="https://www.gstatic.com/firebasejs/7.6.2/firebase-analytics.js"></script>
 </head>
 
-
 <body>
-
 <center>
 <button type = "button" onclick = "createGrid(currSize-17.21)">Shrink Grid</button>
 <button type = "button" onclick = "createGrid(73.11)">Reset Grid</button>
@@ -17,13 +21,11 @@
 <input type='file'/>
 </center>
 <div class = "imgbox"><img id="myImg" src="#" alt="" class = "center-fit"></div>
-
 <button type = "button" onclick = "addInit()">Add Initiative</button>
-<button type = "button" onclick = "remInit()">Remove Dead</button>
+<button type = "button" title= "Removes all rows that contain the string Dead" onclick = "remInit()">Remove Dead</button>
 
 <table id = "initTable">
-<tr><td>Initiative:</td><td><div contenteditable>Name (Editable)</div></td></tr>
+<tr><td>Initiative 1:</td><td><div contenteditable>Name (Editable)</div></td></tr>
 </table>
-
 </body>
 </html>
