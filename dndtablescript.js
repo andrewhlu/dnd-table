@@ -10,7 +10,7 @@ var currInit = 2;
 
 // Calibration configuration
 var stableThreshold = 10;
-var requiredFrames = 100;
+var requiredFrames = 150;
 var sendEveryNFrames = 1;
 var zAxisThreshold = -200;
 
